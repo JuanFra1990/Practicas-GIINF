@@ -1,0 +1,27 @@
+;Limpiar los registros
+MVI A,00
+MOV B,A
+MOV C,A
+MOV D,A
+MOV E,A
+MOV H,A
+MOV L,A
+;Hacemos la division exacta
+LDA 0100;Dividendo
+MOV B,A
+MOV C,A
+LDA 0101;Divisor
+MOV L,A
+MVI H,01
+CONTINUA: MOV A,D
+ADD H
+MOV D,A
+MOV A,B
+SUB L
+CMP E
+MOV B,A
+JZ NOCONTINUA
+JNZ CONTINUA
+NOCONTINUA:MOV A,D
+STA 0102
+HLT

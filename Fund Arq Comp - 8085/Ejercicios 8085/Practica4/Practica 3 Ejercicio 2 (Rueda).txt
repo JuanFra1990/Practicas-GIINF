@@ -1,0 +1,382 @@
+MVI A,00          ; Carga 00 en el acumulador, 
+MOV B,A          ; en el registro B y
+MOV C,A         ; en el registro C
+MOV D,A
+MOV E,A
+MOV H,A         ; Borra los datos de
+MOV L,A          ; los registros H y L
+STA 0503        ; y borra el posible resultado anterior
+
+OUT 00           ;
+OUT 01           ; Tambien borra todos los puertos
+OUT 02           ; de salida utilizados para que no
+OUT 03           ; contengan ningún valor residual
+OUT 04           ;
+OUT 05           ;
+
+MVI A,01
+STA 0500
+MVI A,60
+STA 0501
+MVI A,43
+STA 0502
+
+LHLD, 0501     ; Transfiere los datos desde la memoria a los registros "H" y "L" para iniciar el calculo
+
+LDA 0500        ; Lee el valor del puerto 00 para conocer
+CMP B             ; la operación a realizar
+JZ SUMA         ; Si Z=1 es suma y transfiere el programa a otro
+                        ; lugar, continuando por aquí si Z=0 ya que es resta
+
+MOV A,H         ; Carga un número para iniciar el calculo
+MOV B,A          ; Lo traslada al registro B
+MOV A,L          ; Carga otro número para realizar el calculo
+SUB B             ; Realiza la resta de B sobre el acumulador
+
+JM NEGATIVO ; Si el resultado es negativo el probrama salta a otra zona del
+                         ; programa, en caso contrario continúa en la siguiente línea
+JMP SALIDA1     ; Salta directamente a otra zona del programa
+NEGATIVO: MVI C,01 ; Indicamos si el resultado es positivo "0" o negativo "1".
+CMA                  ; Hacemos el complemento a 2 del resultado de la recta
+INR A                ; para obtener el valor correcto de ésta
+
+STA 0503         ; y lo almacenamos en la posición de memoria 0102
+JMP SALIDA2    ; finalizando el calculo y disponiendonos a salir del programa
+
+SUMA: MOV B,H ; Carga un número para iniciar el calculo en el registro B
+MOV A,L            ; Carga otro número para realizar el calculo
+ADD B               ; Suma al acumulador el número guardado en el registro B
+JNC SALIDA1      ; Saltamos si AC=1, si la suma resulta inferior a 160
+STA 0503          ; Guardamos el valor de la operación en la dirección 0102
+OUT 03             ; Sacamos ese valor por el puerto 03 para visualizarlo
+MVI A,01           ; Al AC=1, cargamos un 1 en el acumulador para guardarlo en la dirección 0103
+                          ; significando la existencia de un número entre 99 y 160
+STA 0504          ;Guardamos ese acarreo en la posición 0103
+OUT 04             ; Mostramos el acarreo por el puerto 04
+LHLD, 0503      ; Se carga el numero resultante en el par HL para visualizar de mejor modo el calculo efectuado
+HLT                   ; Finalizamos la ejecución del programa.
+
+SALIDA1: DAA      ; Pasa el resultado a decimal
+SALIDA2: STA 0503           ; Guardamos el resultado en la posición de memoria 0102
+
+LHLD, 0503
+MOV A,L
+MVI B,00
+MVI E,00
+MVI C,10
+CMP C
+CNC MAYOR
+MOV D,A
+MOV A,E
+CALL COMPARACION
+CALL DESPLAZAR
+MOV A,D
+CALL COMPARACION
+
+HLT
+;CALL PRINT00
+
+MAYOR: INR E
+SUI 10
+CMP C
+CNC MAYOR
+MOV D,A
+MOV A,E
+CALL COMPARACION
+CALL DESPLAZAR
+MOV A,D
+CALL COMPARACION
+
+HLT
+
+COMPARACION: NOP
+CPI 00
+JZ CERO
+CPI 01
+JZ UNO
+CPI 02
+JZ DOS
+CPI 03
+JZ TRES
+CPI 04
+JZ CUATRO
+CPI 05
+JZ CINCO
+CPI 06
+JZ SEIS
+CPI 07
+JZ SIETE
+CPI 08
+JZ OCHO
+CPI 09
+JZ NUEVE
+JM ERROR
+
+HLT
+
+DESPLAZAR: MVI B,00
+MVI C,04
+CUENTA: IN 00
+RLC
+OUT 00
+IN 01
+RLC
+OUT 01
+IN 02
+RLC
+OUT 02
+IN 03
+RLC
+OUT 03
+IN 04
+RLC
+OUT 04
+DCR C
+MOV A, B
+CMP C
+JNZ CUENTA
+
+RET
+
+ERROR: MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,04
+IN 01
+XRA B
+STA 0205
+OUT 01
+MVI B,07
+IN 02
+XRA B
+OUT 02
+MVI B,04
+IN 03
+XRA B
+OUT 03
+MVI B,07
+IN 04
+XRA B
+OUT 04
+RET
+
+NUEVE:  MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,05
+IN 01
+XRA B
+OUT 01
+MVI B,07
+IN 02
+XRA B
+OUT 02
+MVI B,01
+IN 03
+XRA B
+OUT 03
+MVI B,07
+IN 04
+XRA B
+OUT 04
+RET
+
+OCHO:  MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,05
+IN 01
+XRA B
+OUT 01
+MVI B,07
+IN 02
+XRA B
+OUT 02
+MVI B,05
+IN 03
+XRA B
+OUT 03
+MVI B,07
+IN 04
+XRA B
+OUT 04
+RET
+
+SIETE:  MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,05
+IN 01
+XRA B
+OUT 01
+MVI B,05
+IN 02
+XRA B
+OUT 02
+MVI B,01
+IN 03
+XRA B
+OUT 03
+MVI B,01
+IN 04
+XRA B
+OUT 04
+RET
+
+SEIS:  MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,04
+IN 01
+XRA B
+OUT 01
+MVI B,07
+IN 02
+XRA B
+OUT 02
+MVI B,05
+IN 03
+XRA B
+OUT 03
+MVI B,07
+IN 04
+XRA B
+OUT 04
+RET
+
+CINCO:  MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,04
+IN 01
+XRA B
+OUT 01
+MVI B,07
+IN 02
+XRA B
+OUT 02
+MVI B,01
+IN 03
+XRA B
+OUT 03
+MVI B,07
+IN 04
+XRA B
+OUT 04
+RET
+
+CUATRO:  MVI B,05
+IN 00
+XRA B
+OUT 00
+MVI B,05
+IN 01
+XRA B
+OUT 01
+MVI B,07
+IN 02
+XRA B
+OUT 02
+MVI B,01
+IN 03
+XRA B
+OUT 03
+MVI B,01
+IN 04
+XRA B
+OUT 04
+RET
+
+TRES:   MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,01
+IN 01
+XRA B
+OUT 01
+MVI B,07
+IN 02
+XRA B
+OUT 02
+MVI B,01
+IN 03
+XRA B
+OUT 03
+MVI B,07
+IN 04
+XRA B
+OUT 04
+RET
+
+DOS:  MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,01
+IN 01
+XRA B
+OUT 01
+MVI B,07
+IN 02
+XRA B
+OUT 02
+MVI B,04
+IN 03
+XRA B
+OUT 03
+MVI B,07
+IN 04
+XRA B
+OUT 04
+RET
+
+UNO: MVI B,01
+IN 00
+XRA B
+OUT 00
+MVI B,01
+IN 01
+XRA B
+OUT 01
+MVI B,01
+IN 02
+XRA B
+OUT 02
+MVI B,01
+IN 03
+XRA B
+OUT 03
+MVI B,01
+IN 04
+XRA B
+OUT 04
+RET
+
+CERO:  MVI B,07
+IN 00
+XRA B
+OUT 00
+MVI B,05
+IN 01
+XRA B
+OUT 01
+MVI B,05
+IN 02
+XRA B
+OUT 02
+MVI B,05
+IN 03
+XRA B
+OUT 03
+MVI B,07
+IN 04
+XRA B
+OUT 04
+RET
