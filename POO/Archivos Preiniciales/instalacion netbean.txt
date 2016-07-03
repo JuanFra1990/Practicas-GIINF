@@ -1,0 +1,10 @@
+cygwin
+seleccionar paquete make, gdb, y todo lo que sea c/c++
+buscas cmd, pones g++
+despues instalar netbeans
+instalar doxygen
+
+para nuevo proyecto pinchamos en new proyect y en c++ aplication
+
+consejor, a las estructuras ponerle T delante de los 
+nombres para que se sepa lo que es, para saber que no es una variable 
