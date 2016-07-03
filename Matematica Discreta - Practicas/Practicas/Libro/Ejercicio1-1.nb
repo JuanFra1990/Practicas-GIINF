@@ -1,0 +1,107 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 6.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      2507,         98]
+NotebookOptionsPosition[      2071,         78]
+NotebookOutlinePosition[      2413,         93]
+CellTagsIndexPosition[      2370,         90]
+WindowFrame->Normal
+ContainsDynamic->False*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+
+Cuaderno de Pr\[AAcute]cticas de Matematicas Discreta\
+\>", "Title",
+ CellChangeTimes->{{3.6209960954709997`*^9, 3.6209961066741247`*^9}, {
+  3.6209991329553747`*^9, 3.6209991499084997`*^9}},
+ TextAlignment->Center],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  StyleBox[
+   RowBox[{"Practica", " ", "1"}], "Section"]}]], "Input",
+ CellChangeTimes->{{3.6209960211741247`*^9, 3.6209960242209997`*^9}, {
+  3.6209991611584997`*^9, 3.6209991633459997`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Ejercicio 1.1", "Subsubsection",
+ CellChangeTimes->{{3.6209961186741247`*^9, 3.6209961543616247`*^9}, {
+  3.6209961939241247`*^9, 3.6209961967834997`*^9}, {3.6209991739709997`*^9, 
+  3.6209991770491247`*^9}, {3.6209992392991247`*^9, 3.6209992456116247`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Nombre :",
+  FontSize->14,
+  FontWeight->"Bold"],
+ StyleBox[" Juan Francisco \n",
+  FontSize->14],
+ StyleBox["Apellidos : ",
+  FontSize->14,
+  FontWeight->"Bold"],
+ StyleBox["Ab\[AAcute]n Fontecha\n",
+  FontSize->14],
+ StyleBox["Grupo :",
+  FontSize->14,
+  FontWeight->"Bold"],
+ StyleBox[" 1 \.baB\n",
+  FontSize->14],
+ StyleBox["DNI :",
+  FontSize->14,
+  FontWeight->"Bold"],
+ StyleBox[" 77365843 F\n",
+  FontSize->14],
+ StyleBox["Fecha de nacimiento :",
+  FontSize->14,
+  FontWeight->"Bold"],
+ StyleBox[" 11/01/1990",
+  FontSize->14]
+}], "Text",
+ CellChangeTimes->{{3.6209992561584997`*^9, 3.6209993088928747`*^9}},
+ FontWeight->"Plain",
+ FontColor->GrayLevel[0]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{615, 527},
+WindowMargins->{{135, Automatic}, {Automatic, 48}},
+FrontEndVersion->"6.0 for Microsoft Windows (32-bit) (June 19, 2007)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[590, 23, 226, 6, 191, "Title"],
+Cell[819, 31, 240, 5, 56, "Input"],
+Cell[CellGroupData[{
+Cell[1084, 40, 264, 3, 28, "Subsubsection"],
+Cell[1351, 45, 692, 29, 111, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
